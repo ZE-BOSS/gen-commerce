@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DropDown from './DropDown'
 
 interface props {
     mode: any,
@@ -15,6 +16,19 @@ const Header = ({ mode, handleMode, login, selected, routes}: props) => {
     const [navMenu, setNavMenu] = useState<boolean>(false)
     const [searchMenu, setSearchMenu] = useState<boolean>(false)
     const [searchMenu2, setSearchMenu2] = useState<boolean>(false)
+
+    const handleSiteMode = (title: string) => {
+
+        return (
+            <li className='flex flex-row px-4 py-2 justify-between'>
+                <a className={`block text-sm`}>{title}</a>
+                <label className="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" onClick={handleMode} checked={mode === "dark"? true : false} value="" className="sr-only peer" />
+                    <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-gray-700"></div>
+                </label>
+            </li> 
+        )
+    }
 
     return (
         <div>
@@ -66,32 +80,20 @@ const Header = ({ mode, handleMode, login, selected, routes}: props) => {
                                 <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo" />
                             </button>
                         }
-                        <label className="relative inline-flex items-center ml-10 mr-10 cursor-pointer">
-                            <input type="checkbox" onClick={handleMode} checked={mode === "dark"? true : false} value="" className="sr-only peer" />
-                            <div className={`w-11 h-6 bg-gray-200 peer-checked peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-gray-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-700`}></div>
-                        </label>
-                        {/* <!-- Dropdown menu --> */}
-                        <div className={`z-50 fixed top-12 right-6 ${userMenu? "block" : "hidden"} my-4 text-base list-none ${mode === "light"? "light divide-gray-200" : "dark divide-gray-700"} divide-y rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown">
-                            <div className="px-4 py-3">
-                                <span className="block text-sm dark:text-white">Bonnie Green</span>
-                                <span className="block text-sm truncate dark:text-gray-400">name@flowbite.com</span>
-                            </div>
-                            <ul className="py-2" aria-labelledby="user-menu-button">
-                                <li>
-                                    <a href="#" className={`block px-4 py-2 text-sm hover:bg-primary-theme hover:text-white`}>Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#" className={`block px-4 py-2 text-sm hover:bg-primary-theme hover:text-white`}>Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#" className={`block px-4 py-2 text-sm hover:bg-primary-theme hover:text-white`}>Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#" className={`block px-4 py-2 text-sm hover:bg-primary-theme hover:text-white`}>Sign out</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <button data-collapse-toggle="navbar-user" onClick={() => setNavMenu(!navMenu)} type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
+                        <DropDown 
+                            mode={mode} 
+                            show={userMenu} 
+                            type={'plain'} 
+                            nav={{ status: true, userEmail: "name@flowbite.com", userName: "Bonnie Green", title: "Navigation Menu" }}  
+                            actionField={{ status: true, element: handleSiteMode("Theme") }}
+                            items={[
+                                { name: "Dashboard", link: "#" },
+                                { name: "Settings", link: "#" },
+                                { name: "Earnings", link: "#" },
+                                { name: "Sign out", link: "#" },
+                            ]}
+                        />
+                        <button data-collapse-toggle="navbar-user" onClick={() => setNavMenu(!navMenu)} type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-user" aria-expanded="false">
                             <span className="sr-only">Open main menu</span>
                             <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>

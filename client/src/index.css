@@ -9,3 +9,17 @@
 .light {
   @apply bg-light-theme text-dark-theme;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-transparent border
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-theme
+}

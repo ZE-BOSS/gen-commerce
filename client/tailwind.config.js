@@ -19,6 +19,7 @@ export default {
       textColor: colorData,
       borderColor: colorData,
       ringColor: colorData,
+      accentColor: colorData,
       animation: {
         'spin-slow': 'spin 5s linear infinite',
       },
